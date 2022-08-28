@@ -1,11 +1,19 @@
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
-const port = 8000;
+const port = process.env.PORT || 8000;
+const app = express();
+
+app.use(cors());
+
+if(process.env.NODE_ENV !== "PRODUCTION"){
+    require('dotenv').config({ path : "./config/config.env"});
+}
 
 const db = require('./config/mongoose');
 const Contact = require('./model/contact');
 
-const app = express();
+
 
 
 app.set('view engine', 'ejs');
@@ -29,13 +37,16 @@ var contactList = [
     }
 ];
 
-app.get('/', function (req, res) {
 
-    Contact.find({}, function(err, contacts){
-        if(err){
+app.get('/', function (req, res) {
+    // res.send('server is running');
+    // res.end();
+    Contact.find({}, function (err, contacts) {
+        if (err) {
             console.log("Error in faching data from db");
             return;
         }
+
 
         return res.render('home', {
             title: "Contect List",
@@ -56,15 +67,15 @@ app.get('/delete-contact/', function (req, res) {
 
     let id = req.query.id;
 
-    Contact.findByIdAndDelete(id, function(err){
-        if(err){
+    Contact.findByIdAndDelete(id, function (err) {
+        if (err) {
             console.log('error in deleting an object from database');
             return;
         }
 
         return res.redirect('back');
-    }); 
-    
+    });
+
 });
 
 
@@ -78,7 +89,7 @@ app.post('/create-contact', function (req, res) {
     },
         function (err, newContact) {
             if (err) {
-                console.log('error in create new contact ',err);
+                console.log('error in create new contact ', err);
                 return;
             }
 

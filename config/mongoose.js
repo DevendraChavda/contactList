@@ -2,10 +2,8 @@
 const mongoose = require('mongoose');
 
 //connect to the database
-mongoose.connect('mongodb://localhost/contact_list_db');
+mongoose.connect('mongodb://localhost/contact_list_db' || process.env.MONGODB_URI);
 
-
-// acquire the connection ( to check if it is successful)
 const db = mongoose.connection;
 
 
