@@ -40,7 +40,7 @@ var contactList = [
 
 
 app.get('/', function (req, res) {
-    // res.send('server is running');
+    res.send('server is running');
     // res.end();
     Contact.find({}, function (err, contacts) {
         if (err) {
@@ -94,7 +94,7 @@ app.post('/create-contact', function (req, res) {
                 return;
             }
 
-            console.log('**********', newContact);
+            // console.log('**********', newContact);
             return res.redirect('back');
         });
 
