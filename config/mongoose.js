@@ -1,5 +1,8 @@
 // require the library
 const mongoose = require('mongoose');
+const cors = require('cors');
+
+require('dotenv.config');
 
 //connect to the database
 mongoose.connect('mongodb://localhost/contact_list_db' || process.env.MONGODB_URI);
