@@ -5,7 +5,6 @@ const port = process.env.PORT || 8000;
 const app = express();
 
 app.use(cors());
-require('dotenv.config');
 
 if(process.env.NODE_ENV !== "PRODUCTION"){
     require('dotenv').config({ path : "./config/config.env"});
@@ -43,19 +42,18 @@ var contactList = [
 app.get('/', function (req, res) {
     // res.send('server is running');
     // res.end();
-    // Contact.find({}, function (err, contacts) {
-    //     if (err) {
-    //         console.log("Error in faching data from db");
-    //         return;
-    //     }
+    Contact.find({}, function (err, contacts) {
+        if (err) {
+            console.log("Error in faching data from db");
+            return;
+        }
 
 
-    //     return res.render('home', {
-    //         title: "Contect List",
-    //         contact_List: contacts
-    //     });
-    // });
-    return res.render('home');
+        return res.render('home', {
+            title: "Contect List",
+            contact_List: contacts
+        });
+    });
 });
 
 
