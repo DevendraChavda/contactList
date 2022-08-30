@@ -39,20 +39,20 @@ var contactList = [
 
 
 app.get('/', function (req, res) {
-    res.send('server is running');
-    res.end();
-    // Contact.find({}, function (err, contacts) {
-    //     if (err) {
-    //         console.log("Error in faching data from db");
-    //         return;
-    //     }
+    // res.send('server is running');
+    // res.end();
+    Contact.find({}, function (err, contacts) {
+        if (err) {
+            console.log("Error in faching data from db");
+            return;
+        }
 
 
-    //     return res.render('home', {
-    //         title: "Contect List",
-    //         contact_List: contacts
-    //     });
-    // });
+        return res.render('home', {
+            title: "Contect List",
+            contact_List: contacts
+        });
+    });
 });
 
 
